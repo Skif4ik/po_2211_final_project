@@ -21,6 +21,6 @@ public class UserDao {
     }
 
     public boolean addUser(User user, String password) {
-        return true;
+        return false;
     }
 }
