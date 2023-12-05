@@ -19,4 +19,5 @@ public class UserService {
     public boolean addUser(User user, String password) {
         return dao.addUser(user, password);
     }
+
 }
