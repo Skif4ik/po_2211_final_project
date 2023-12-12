@@ -43,6 +43,30 @@ public class UserDao {
     }
 
     public boolean addUser(User user, String password) {
+        try (Connection cn = ConnectionManager.getConnection();
+        PreparedStatement ps = cn.prepareStatement(INSERT_USER)){
+            if(isAccessible(user.getLogin(), cn)){
+                ps.setString(1, user.getLogin());
+                ps.setString(2, user.getName());
+                ps.setString(3, user.getEmail());
+                ps.setString(4, password);
+
+                return ps.executeUpdate() > 0;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean isAccessible(String login, Connection cn){
+        try(PreparedStatement ps = cn.prepareStatement(SELECT_USER_BY_LOGIN)){
+            ps.setString(1, login);
+            return  !ps.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }
