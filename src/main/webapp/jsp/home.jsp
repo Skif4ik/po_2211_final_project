@@ -18,7 +18,17 @@
         <div class="food-item-box">
             <img class="small-image" src="/img/${pizza.name}.jpg" alt="pizza">
             <p>Name: ${pizza.name}</p>
-            <p>Price: ${pizza.price}</p>
+            <p>Price: ${pizza.price} BYN</p>
+            <form method="post" action="<%=ApplicationConstants.CART_CONTROLLER%>">
+                <input type="hidden" name="<%=JspConstants.CART_ACTION_PARAM%>" value="addToCart">
+                <input type="hidden" name="<%=JspConstants.FOOD_ID_PARAM%>" value="${pizza.id}">
+                <input type="hidden" name="<%=JspConstants.FOOD_TYPE_PARAM%>" value="1">
+                <input type="hidden" name="<%=JspConstants.FOOD_NAME_PARAM%>" value="${pizza.name}">
+                <input type="hidden" name="<%=JspConstants.FOOD_PRICE_PARAM%>" value="${pizza.price}">
+                <input type="number" name="<%=JspConstants.FOOD_QUANTITY_PARAM%>" required>
+                <input type="submit" value="Add to Cart">
+            </form>
+
         </div>
     </c:forEach>
 </c:if>
@@ -28,7 +38,16 @@
         <div class="food-item-box">
             <img class="small-image" src="/img/${drink.name}.jpg" alt="drink">
             <p>Name: ${drink.name}</p>
-            <p>Price: ${drink.price}</p>
+            <p>Price: ${drink.price} BYN</p>
+            <form method="post" action="<%=ApplicationConstants.CART_CONTROLLER%>">
+                <input type="hidden" name="<%=JspConstants.CART_ACTION_PARAM%>" value="addToCart">
+                <input type="hidden" name="<%=JspConstants.FOOD_ID_PARAM%>" value="${drink.id}">
+                <input type="hidden" name="<%=JspConstants.FOOD_TYPE_PARAM%>" value="2">
+                <input type="hidden" name="<%=JspConstants.FOOD_NAME_PARAM%>" value="${drink.name}">
+                <input type="hidden" name="<%=JspConstants.FOOD_PRICE_PARAM%>" value="${drink.price}">
+                <input type="number" name="<%=JspConstants.FOOD_QUANTITY_PARAM%>" required>
+                <input type="submit" value="Add to Cart">
+            </form>
         </div>
     </c:forEach>
 </c:if>
