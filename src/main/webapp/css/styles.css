@@ -105,7 +105,6 @@ input[type=number]{
     float: left;
     border: 1px solid black;
     margin: 5px 50px 10px 0px;
-
 }
 
 .cart-text{
@@ -118,7 +117,7 @@ input[type=number]{
     background-color: green;
     border: none;
     color: white;
-    padding: 0px;
+    padding: 10px;
     text-decoration: none;
     margin: 0 3px;
     cursor: pointer;

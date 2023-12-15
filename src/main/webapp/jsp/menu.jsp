@@ -1,39 +1,30 @@
-<%@ page import="by.itclass.constants.JspConstants" %>
-<%@ page import="by.itclass.constants.ApplicationConstants" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="by.itclass.constants.ApplicationConstants"%>
+<%@ page import="by.itclass.constants.JspConstants"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <ul class="nav-ul">
-    <li class="nav-li float-left">
-        <a class="active" href="<%= JspConstants.INDEX_JSP%>">Index</a>
-    </li>
     <c:choose>
         <c:when test="${empty user}">
-
+            <li class="nav-li float-left">
+                <a class="active" href="<%=JspConstants.INDEX_JSP%>">Index</a></li>
             <li class="nav-li">
-                <a href="<%= JspConstants.LOGIN_JSP%>">Login</a>
-            </li>
+                <a href="<%=JspConstants.LOGIN_JSP%>">Login</a></li>
             <li class="nav-li">
-                <a href="<%= JspConstants.REGISTRATION_JSP%>">Registration</a>
-            </li>
+                <a href="<%=JspConstants.REGISTRATION_JSP%>">Registration</a></li>
         </c:when>
         <c:otherwise>
             <li class="nav-li float-left">
-                <a class="active" href="<%= JspConstants.HOME_JSP%>">Home</a>
-            </li>
+                <a class="active" href="<%=JspConstants.HOME_JSP%>">Home</a></li>
             <li class="nav-li float-left">
-                <a  href="<%= ApplicationConstants.PIZZA_MENU%>">Pizza</a>
-            </li>
+                <a href="<%=ApplicationConstants.PIZZA_MENU%>">Pizza</a></li>
             <li class="nav-li float-left">
-                <a  href="<%= ApplicationConstants.DRINKS_MENU%>">Drink</a>
-            </li>
+                <a href="<%=ApplicationConstants.DRINKS_MENU%>">Drink</a></li>
             <li class="nav-li">
-                <a href="<%= ApplicationConstants.LOGOUT_CONTROLLER%>">Logout</a>
-            </li>
+                <a href="<%=ApplicationConstants.LOGOUT_CONTROLLER%>">Logout</a></li>
             <li class="nav-li">
-                <a href="<%= JspConstants.CART_JSP%>">Cart</a>
-            </li>
-
+                <a href="<%=JspConstants.CART_JSP%>">Cart</a></li>
         </c:otherwise>
     </c:choose>
 </ul>

@@ -15,7 +15,7 @@
          <c:when test="${not empty orderItems}">
              <h2>Yours order items:</h2>
              <c:forEach var="orderItem" items="${orderItems}">
-                 <div class="item-container">
+                 <div class="cart-item-container">
                      <img class="cart-img" src="/img/${orderItem.foodItem.name}.jpg">
                      <h3 class="cart-text">
                          You ordered ${orderItem.quantity} ${orderItem.foodItem.name} by
@@ -40,3 +40,6 @@
      </c:choose>
 </body>
 </html>
+
+
+
