@@ -13,4 +13,6 @@ public class DbConstants {
     public static final String SELECT_USER_BY_LOGIN = "SELECT id FROM user WHERE login = ?";
     public static final String SELECT_FOOD_ITEMS_BY_TYPE = "SELECT id, name,price FROM foodItem WHERE foodTypeId = ?";
 
+    public static final String INSERT_ORDER = "INSERT INTO orders (id, date, userID, address) VALUES (?,?,?,?)";
+    public static final String INSERT_ORDER_ITEM = "INSERT INTO orderItem (orderId, itemId, quantity) VALUES (?,?,?)";
 }

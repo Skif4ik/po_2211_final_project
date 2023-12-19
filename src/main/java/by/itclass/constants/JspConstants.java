@@ -11,6 +11,7 @@ public class JspConstants {
     public static final String FOOD_PRICE_PARAM = "price";
     public static final String FOOD_QUANTITY_PARAM = "quantity";
     public static final String CART_ACTION_PARAM = "cartAction";
+    public static final String ADDRESS_PARAM = "address";
 
 
 
@@ -19,6 +20,7 @@ public class JspConstants {
     public static final String PIZZA_ATTR = "pizzas";
     public static final String DRINK_ATTR = "drinks";
     public static final String ORDER_ITEMS_ATTR = "orderItems";
+    public static final String ORDER_ID_ATTR = "orderId";
 
     public static final String LOGIN_JSP = "/jsp/login.jsp";
     public static final String HOME_JSP = "/jsp/home.jsp";

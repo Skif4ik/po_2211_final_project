@@ -6,12 +6,18 @@
 <head>
     <title>Home page</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/slider.js"></script>
 </head>
 <body>
 <jsp:include page="<%=JspConstants.MENU_JSP%>"/>
-<h2>User Info: </h2>
+
 <h2>Hello ${user.name}</h2>
-<h1>Some content will be placed here.. i.e. slider</h1>
+<c:if test="${not empty message}">
+    <h2>${message}</h2>
+</c:if>
+
+<jsp:include page="/jsp/slider.html"/>
+
 <c:if test="${not empty pizzas}">
     <h2>Today we propose next pizzas:</h2>
     <c:forEach var="pizza" items="${pizzas}">

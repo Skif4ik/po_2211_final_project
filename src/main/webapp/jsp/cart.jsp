@@ -33,6 +33,15 @@
                      </form>
                  </div>
              </c:forEach>
+             <div class="order-container">
+                 <form method="post" action="<%=ApplicationConstants.ORDER_CONTROLLER%>">
+                     <input name="<%=JspConstants.ADDRESS_PARAM%>" placeholder="Delivery address" required>
+                     <input type="submit" value="Submit order">
+                 </form>
+                 <c:if test="${not empty message}">
+                     <h2 class="error">${message}</h2>
+                 </c:if>
+             </div>
          </c:when>
          <c:otherwise>
              <h2>You have no items in the cart</h2>

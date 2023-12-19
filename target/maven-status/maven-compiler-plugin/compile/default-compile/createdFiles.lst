@@ -1,4 +1,5 @@
 by\itclass\model\services\UserService.class
+by\itclass\model\services\OrderService.class
 by\itclass\model\services\CartService.class
 by\itclass\controllers\food\MenuController.class
 by\itclass\model\entities\FoodItem.class
@@ -8,7 +9,10 @@ by\itclass\model\dao\FoodDao.class
 by\itclass\constants\JspConstants.class
 by\itclass\controllers\user\RegistrationController.class
 by\itclass\model\db\ConnectionManager.class
+by\itclass\model\entities\Order.class
 by\itclass\controllers\AbstractController.class
+by\itclass\controllers\order\OrderController.class
+by\itclass\model\dao\OrderDao.class
 by\itclass\controllers\order\CartController.class
 by\itclass\model\db\PropertiesManager.class
 by\itclass\model\entities\OrderItem.class
