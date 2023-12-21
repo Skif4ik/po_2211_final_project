@@ -1,6 +1,7 @@
 package by.itclass.model.dao;
 
 import by.itclass.model.db.ConnectionManager;
+import by.itclass.model.entities.Order;
 import by.itclass.model.entities.OrderItem;
 import by.itclass.model.entities.User;
 
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -23,28 +25,28 @@ public class OrderDao {
         ConnectionManager.init();
     }
 
-    public static OrderDao getInstance(){
-        if(Objects.isNull(dao)){
+    public static OrderDao getInstance() {
+        if (Objects.isNull(dao)) {
             dao = new OrderDao();
         }
         return dao;
     }
 
-    public boolean saveOrder(HttpSession session, String address){
+    public boolean saveOrder(HttpSession session, String address) {
         var user = (User) session.getAttribute(USER_ATTR);
         var now = LocalDateTime.now();
-        var date =now.format(DateTimeFormatter.ofPattern("y-MM-dd"));
+        var date = now.format(DateTimeFormatter.ofPattern("y-MM-dd"));
         var time = now.format(DateTimeFormatter.ofPattern("HH-mm"));
-        var orderId =String.join("-", user.getName(), date, time);
+        var orderId = String.join("-", user.getName(), date, time);
         return saveOrderToDb(orderId, date, user.getId(), address, session);
     }
 
-    private boolean saveOrderToDb(String orderId, String date, int userId, String address, HttpSession session){
-        try(var cn = ConnectionManager.getConnection()){
+    private boolean saveOrderToDb(String orderId, String date, int userId, String address, HttpSession session) {
+        try (var cn = ConnectionManager.getConnection()) {
             cn.setAutoCommit(false);
             firstAction(orderId, date, userId, address, cn);
             var items = (List<OrderItem>) session.getAttribute(ORDER_ITEMS_ATTR);
-            for (OrderItem item : items){
+            for (OrderItem item : items) {
                 secondAction(orderId, item, cn);
             }
             cn.commit();
@@ -55,12 +57,12 @@ public class OrderDao {
         return true;
     }
 
-    private void firstAction(String orderId, String date, int userId, String address, Connection cn) throws SQLException{
-        try(var psSaveOrder = cn.prepareStatement(INSERT_ORDER)) {
+    private void firstAction(String orderId, String date, int userId, String address, Connection cn) throws SQLException {
+        try (var psSaveOrder = cn.prepareStatement(INSERT_ORDER)) {
             psSaveOrder.setString(1, orderId);
             psSaveOrder.setString(2, date);
             psSaveOrder.setInt(3, userId);
-            psSaveOrder.setString(4,address);
+            psSaveOrder.setString(4, address);
             psSaveOrder.executeUpdate();
         }
     }
@@ -73,5 +75,82 @@ public class OrderDao {
             psSaveItem.executeUpdate();
 
         }
+    }
+
+    public List<Order> getOrders(int userId) {
+        var orders = new ArrayList<Order>();
+        try (var cn = ConnectionManager.getConnection();
+             var ps = cn.prepareStatement(SELECT_ORDERS_BY_USER)) {
+            ps.setInt(1, userId);
+            var rs = ps.executeQuery();
+            while (rs.next()) {
+                var id = rs.getString(ID_COL);
+                var date = rs.getString(DATE_COL);
+                var address = rs.getString(ADDRESS_COL);
+                orders.add(new Order(id, date, address));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    public String buildReceipt(String orderId) {
+        var sb = new StringBuilder();
+        try(var cn = ConnectionManager.getConnection();
+            var ps = cn.prepareStatement(SELECT_HEAD_FOR_ORDER)){
+            ps.setString(1, orderId);
+            var rs = ps.executeQuery();
+            if (rs.next()){
+                var date = rs.getString(DATE_COL);
+                var address = rs.getString(ADDRESS_COL);
+                sb.append("<h2>Order Id: ").append(orderId).append("</h2>")
+                        .append("<h2>Date of order : ").append(date).append("</h2>")
+                        .append("<h2>Delivery of address : ").append(address).append("</h2>")
+                        .append("<h2 class='underline'>You ordered : </h2>")
+                        .append(getItemsForReceipt(orderId, cn))
+                        .append(getTotalAmount(orderId, cn));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    private String getItemsForReceipt(String orderId, Connection cn){
+        var sb = new StringBuilder();
+        try(var ps = cn.prepareStatement(SELECT_ITEMS_FOR_ORDER)){
+            ps.setString(1, orderId);
+            var rs = ps.executeQuery();
+            while (rs.next()) {
+                sb.append("<h2>").append(rs.getInt(QUANTITY_COL)).append(" ")
+                        .append(rs.getString(NAME_COL)).append(" by ")
+                        .append(rs.getDouble(PRICE_COL)).append(" heta tam ")
+                        .append(rs.getDouble(AMOUNT_COL)).append(" byn.</h2>");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    private String getTotalAmount(String orderId, Connection cn) {
+        var sb = new StringBuilder();
+        try(var ps = cn.prepareStatement(SELECT_TOTAL_AMOUNT)){
+            ps.setString(1, orderId);
+            var rs = ps.executeQuery();
+            if(rs.next()){
+                sb.append("<h2 class='underline'> Total amount : ")
+                        .append(rs.getDouble(AMOUNT_COL))
+                        .append(" byn.</h2>");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 }
