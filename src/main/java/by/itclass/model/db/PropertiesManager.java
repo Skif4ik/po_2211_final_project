@@ -1,17 +1,18 @@
 package by.itclass.model.db;
 
-import java.io.FileNotFoundException;
+import lombok.experimental.UtilityClass;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+@UtilityClass
 public class PropertiesManager {
-    public static Properties getProperties(String filePath){
-        Properties props = new Properties();
-        try(FileReader fr = new FileReader(Thread.currentThread()
-                .getContextClassLoader().getResource(filePath).getPath())){
+    public static Properties getProperties(String fileName) {
+        var props = new Properties();
+        try (var fr = new FileReader(Thread.currentThread()
+                .getContextClassLoader().getResource(fileName).getPath())) {
             props.load(fr);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

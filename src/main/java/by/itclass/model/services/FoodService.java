@@ -6,20 +6,16 @@ import by.itclass.model.entities.FoodItem;
 import java.util.List;
 import java.util.Objects;
 
-public class FoodService {
-    private static FoodService service;
-    private FoodDao dao;
+public class FoodService implements Service{
 
-    private FoodService() {
-        dao = FoodDao.getInstance();
+    private final FoodDao dao;
 
+    public FoodService() {
+        dao = new FoodDao();
     }
 
-    public static FoodService getInstance() {
-        return Objects.isNull(service) ? new FoodService() : service;
-    }
 
-    public List<FoodItem> getFoodItemByType(int foodType){
-        return dao.getFoodItemByType(foodType);
+    public List<FoodItem> getFoodItemsByType(int foodType) {
+        return dao.getFoodItemsByType(foodType);
     }
 }

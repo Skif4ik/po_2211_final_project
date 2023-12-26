@@ -4,38 +4,25 @@ import by.itclass.model.db.ConnectionManager;
 import by.itclass.model.entities.User;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
 import static by.itclass.constants.DbConstants.*;
 
 public class UserDao {
-    private static UserDao dao;
 
-    public UserDao() {
-        ConnectionManager.init();
-    }
-
-    public static UserDao getInstance(){
-        return Objects.isNull(dao) ? new UserDao() : dao;
-    }
-
-    public User getUser(String login, String password){
-        try(Connection cn = ConnectionManager.getConnection();
-        PreparedStatement ps = cn.prepareStatement(SELECT_USER)){
+    public User getUser(String login, String password) {
+        try (var cn = ConnectionManager.getConnection();
+             var ps = cn.prepareStatement(SELECT_USER)) {
             ps.setString(1, login);
             ps.setString(2, password);
-
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                int id = rs.getInt(ID_COL);
-                String name = rs.getString(NAME_COL);
-                String email = rs.getString(EMAIL_COL);
+            var resultSet = ps.executeQuery();
+            if(resultSet.next()) {
+                var id = resultSet.getInt(ID_COL);
+                var name = resultSet.getString(NAME_COL);
+                var email = resultSet.getString(EMAIL_COL);
                 return new User(id, login, name, email);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,16 +30,16 @@ public class UserDao {
     }
 
     public boolean addUser(User user, String password) {
-        try (Connection cn = ConnectionManager.getConnection();
-        PreparedStatement ps = cn.prepareStatement(INSERT_USER)){
-            if(isAccessible(user.getLogin(), cn)){
-                ps.setString(1, user.getLogin());
-                ps.setString(2, user.getName());
-                ps.setString(3, user.getEmail());
+        try (var cn = ConnectionManager.getConnection();
+             var psInsert = cn.prepareStatement(INSERT_USER);
+             var psSelect = cn.prepareStatement(SELECT_USERID_BY_LOGIN)) {
+            psSelect.setString(1, user.getLogin());
+            if (isAccessible() {
+                ps.setString(1, user.getName());
+                ps.setString(2, user.getEmail());
+                ps.setString(3, user.getLogin());
                 ps.setString(4, password);
-
                 return ps.executeUpdate() > 0;
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,10 +47,10 @@ public class UserDao {
         return false;
     }
 
-    private boolean isAccessible(String login, Connection cn){
-        try(PreparedStatement ps = cn.prepareStatement(SELECT_USER_BY_LOGIN)){
+    private boolean isAccessible(String login, Connection cn) throws SQLException {
+        try ) {
             ps.setString(1, login);
-            return  !ps.executeQuery().next();
+            return !ps.executeQuery().next();
         } catch (SQLException e) {
             e.printStackTrace();
         }

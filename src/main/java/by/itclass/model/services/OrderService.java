@@ -1,29 +1,23 @@
 package by.itclass.model.services;
 
+import by.itclass.model.dao.FoodDao;
 import by.itclass.model.dao.OrderDao;
 import by.itclass.model.entities.Order;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
+import jakarta.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Objects;
 
-public class OrderService {
-    private static OrderService service;
+public class OrderService implements Service{
+
     private OrderDao dao;
 
-    private OrderService(){
-        dao = OrderDao.getInstance();
+    public OrderService() {
+        dao = new OrderDao();
     }
 
-    public static OrderService getInstance(){
-        if(Objects.isNull(service)){
-            service = new OrderService();
-        }
-        return service;
-    }
 
-    public boolean saveOrder(HttpSession session, String address){
+    public boolean saveOrder(HttpSession session, String address) {
         return dao.saveOrder(session, address);
     }
 

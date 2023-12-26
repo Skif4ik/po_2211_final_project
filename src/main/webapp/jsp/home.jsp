@@ -1,30 +1,30 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="by.itclass.constants.ApplicationConstants" %>
-<%@ page import="by.itclass.constants.JspConstants" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="by.itclass.constants.ApplicationConstants"%>
+<%@ page import="by.itclass.constants.JspConstants"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>Home page</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/slider.js"></script>
 </head>
 <body>
 <jsp:include page="<%=JspConstants.MENU_JSP%>"/>
-
 <h2>Hello ${user.name}</h2>
 <c:if test="${not empty message}">
     <h2>${message}</h2>
 </c:if>
-
 <jsp:include page="/jsp/slider.html"/>
-
 <c:if test="${not empty pizzas}">
     <h2>Today we propose next pizzas:</h2>
+    <script>
+        document.getElementsByClassName('slider-container')[0].style.display='none';
+    </script>
     <c:forEach var="pizza" items="${pizzas}">
         <div class="food-item-box">
             <img class="small-image" src="/img/${pizza.name}.jpg" alt="pizza">
-            <p>Name: ${pizza.name}</p>
-            <p>Price: ${pizza.price} BYN</p>
+            <p>Name: ${pizza.name}.</p>
+            <p>Price: ${pizza.price} byn.</p>
             <form method="post" action="<%=ApplicationConstants.CART_CONTROLLER%>">
                 <input type="hidden" name="<%=JspConstants.CART_ACTION_PARAM%>" value="addToCart">
                 <input type="hidden" name="<%=JspConstants.FOOD_ID_PARAM%>" value="${pizza.id}">
@@ -34,17 +34,19 @@
                 <input type="number" name="<%=JspConstants.FOOD_QUANTITY_PARAM%>" required>
                 <input type="submit" value="Add to Cart">
             </form>
-
         </div>
     </c:forEach>
 </c:if>
 <c:if test="${not empty drinks}">
     <h2>Today we propose next drinks:</h2>
+    <script>
+        document.getElementsByClassName('slider-container')[0].style.display='none';
+    </script>
     <c:forEach var="drink" items="${drinks}">
         <div class="food-item-box">
             <img class="small-image" src="/img/${drink.name}.jpg" alt="drink">
-            <p>Name: ${drink.name}</p>
-            <p>Price: ${drink.price} BYN</p>
+            <p>Name: ${drink.name}.</p>
+            <p>Price: ${drink.price} byn.</p>
             <form method="post" action="<%=ApplicationConstants.CART_CONTROLLER%>">
                 <input type="hidden" name="<%=JspConstants.CART_ACTION_PARAM%>" value="addToCart">
                 <input type="hidden" name="<%=JspConstants.FOOD_ID_PARAM%>" value="${drink.id}">

@@ -15,7 +15,6 @@ public class JspConstants {
     public static final String ORDER_ID_PARAM = "orderId";
 
 
-
     public static final String MESSAGE_ATTR = "message";
     public static final String USER_ATTR = "user";
     public static final String PIZZA_ATTR = "pizzas";
@@ -23,18 +22,17 @@ public class JspConstants {
     public static final String ORDER_ITEMS_ATTR = "orderItems";
     public static final String ORDER_ID_ATTR = "orderId";
     public static final String ORDERS_ATTR = "orders";
-    public static final String RECEIPT_ATTR = "ordersReceipt";
+    public static final String RECEIPT_ATTR = "orderReceipt";
+
 
     public static final String LOGIN_JSP = "/jsp/login.jsp";
     public static final String HOME_JSP = "/jsp/home.jsp";
     public static final String REGISTRATION_JSP = "/jsp/registration.jsp";
+    public static final String MENU_JSP = "/jsp/menu.jsp";
     public static final String INDEX_JSP = "/index.jsp";
     public static final String CART_JSP = "/jsp/cart.jsp";
-    public static final String MENU_JSP = "/jsp/menu.jsp";
     public static final String ORDERS_JSP = "/jsp/orders.jsp";
     public static final String RECEIPT_JSP = "/jsp/receipt.jsp";
 
-    public static final String BACKGROUND_IMG = "/img/pizza-dinner.jpg";
-
-
+    public static final String BACKGROUND_IMAGE = "/img/pizza-dinner.jpg";
 }

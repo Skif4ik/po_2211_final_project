@@ -1,37 +1,28 @@
 package by.itclass.model.services;
 
 import by.itclass.model.entities.OrderItem;
+import jakarta.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static by.itclass.constants.JspConstants.ORDER_ITEMS_ATTR;
 
-public class CartService {
+public class CartService implements Service{
     private static CartService service;
 
-    private CartService() {
-    }
 
-    public static CartService getInstance(){      //симполтон
-        if (Objects.isNull(service)){
-            service = new CartService();
+
+    public List<OrderItem> processCart(HttpSession session, String cartAction, OrderItem item) {
+        Object orderItems = session.getAttribute(ORDER_ITEMS_ATTR);
+        List<OrderItem> items = Objects.nonNull(orderItems)
+                ? (List<OrderItem>) orderItems
+                : new ArrayList<>();
+        switch (cartAction) {
+            case "addToCart" -> items.add(item);
+            case "removeFromCart" -> items.remove(item);
         }
-        return service;
+        return items;
     }
-
-    public List<OrderItem> processCart(HttpSession session, String cartAction, OrderItem item){
-       Object orderItems = session.getAttribute(ORDER_ITEMS_ATTR);
-       List<OrderItem> items = Objects.nonNull(orderItems)
-               ? (List<OrderItem>) orderItems
-               :new ArrayList<>();
-       switch (cartAction){
-           case "addToCart" -> items.add(item);
-           case "removeFromCart" -> items.remove(item);
-       }
-       return items;
-    }
-
 }
