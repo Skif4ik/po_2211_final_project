@@ -14,6 +14,7 @@ C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itcla
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\model\db\ConnectionManager.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\model\services\OrderService.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\controllers\food\MenuController.java
+C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\filters\RegisteredUserFilter.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\model\dao\FoodDao.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\model\dao\UserDao.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\controllers\order\PrintOrderController.java
@@ -23,6 +24,7 @@ C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itcla
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\controllers\order\CartController.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\controllers\order\OrdersHistoryController.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\model\services\FoodService.java
+C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\filters\AuthFilter.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\model\services\Service.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\controllers\order\OrderController.java
 C:\Users\skif-\IdeaProjects\prepod3\po_2211_final_project\src\main\java\by\itclass\model\dao\OrderDao.java
